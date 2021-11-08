@@ -1,10 +1,22 @@
 """
-This file will contain some random queries and return types
+This file will contain some queries and return types for our API
 """
 
 type Query{
-    """
-    This is your hello world query
-    """
-    ExampleQuery: String @isAuthenticated
+    Gist(id: ID!): Gist
+    allGists(username: String!, filter: GistFilter): [Gist]
+}
+
+type Gist{
+    id: ID
+    files: [GistFile]
+}
+
+type GistFile{
+    filename: String
+    content: String
+}
+
+input GistFilter{
+    starred: Boolean
 }
