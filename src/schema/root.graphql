@@ -1,10 +1,15 @@
 """
-This file will contain some queries and return types for our API
+This file will contain some queries, mutations and return types for our API
 """
 
 type Query{
     Gist(id: ID!): Gist
     allGists(username: String!, filter: GistFilter): [Gist]
+}
+
+type Mutation{
+    addGistToFavourites(id: ID!): Boolean
+    removeGistFromFavourites(id: ID!): Boolean
 }
 
 type Gist{

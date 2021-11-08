@@ -2,6 +2,8 @@ import fetch from 'node-fetch';
 import { getGistListForUser,
   getGistByIdForUser,
   getGistListOfFavorites,
+  removeGistFromFavourites,
+  addGistToFavourites
 } from '../library/gist_functions';
 
 const resolvers = {
@@ -25,6 +27,31 @@ const resolvers = {
       }
       return result.data;
     }
+  },
+  Mutation:{
+    addGistToFavourites: async(_parent, args, { context, dataSources }, info) => {
+      const { database } = dataSources;
+      try {
+        const result =  await addGistToFavourites(args.id, database);
+        return result;
+      }
+      catch (e){
+        // just console log the error for now and send it on
+        console.log(e);
+        return e;
+      }
+    },
+    removeGistFromFavourites: async(_parent, args, { context, dataSources }, info) => {
+      try {
+        const { database } = dataSources;
+        return removeGistFromFavourites(args.id, database);
+      }
+      catch (e){
+        // just console log the error for now and send it on
+        console.log(e);
+        return e;
+      }
+    },
   },
   Gist:{
     files(parent) {
