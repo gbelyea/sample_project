@@ -1,5 +1,8 @@
 #sample project
 
+UNIMPLEMENTED - I ran out of time, i did not implement the library function to return
+favourited gists
+
 create a .env file in the root of the project with the following entries:
 
 NODE_ENV=development
