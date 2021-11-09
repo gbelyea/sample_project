@@ -1,8 +1,59 @@
-# just_for_kicks
+#sample project
 
-Branch - Hello World Setup
-There is a branch here for anyone interested in playing around with a bare bones apollo express graphql server.. I added some useful functionality
-around directive resolvers for security, as well as some graphql-tools related schema organization functionality as that gets important quickly as
-schema files and resolver files grow... i also added in the things to make your project run easier like nodemon(restarts you server on save), prettier/eslint
-(for code quality), babel (javascript compiler, allowed me to use imports vs require statements) etc... nothing fancy but next branch will have some additional 
-functionality
+create a .env file in the root of the project with the following entries:
+
+NODE_ENV=development
+LOCAL_CORS_ORIGINS=['http://localhost:4000','https://studio.apollographql.com']
+GITHUB_GIST_API=https://api.github.com
+
+It is important to note that due to time restrictions, it is assumed you will
+run the build on a windows machine.. i developed it on a windows machine and
+didn't have time to mess with that
+
+After you have cloned the repository you would open it up and
+
+1). npm install
+2). npm run build
+3). npm run start:production
+
+in postman you can send the requests
+
+1). With the username variable of your choice
+
+query Query($username: String!) {
+  allGists(username: $username) {
+    id
+    files {
+      filename
+      content
+    }
+  }
+}
+
+2). With the gist id of your choice
+
+query Query($gistId: ID!) {
+  Gist(id: $gistId) {
+      id
+    files {
+      filename
+    content
+    }
+  }
+}
+
+3). Add gist to favorites with gist id
+
+mutation AddGistToFavouritesMutation($addGistToFavouritesId: ID!) {
+  addGistToFavourites(id: $addGistToFavouritesId) 
+}
+
+4). Remove gists from favourites with gist id
+
+mutation RemoveGistFromFavouritesMutation($removeGistFromFavouritesId: ID!) {
+  removeGistFromFavourites(id: $removeGistFromFavouritesId) 
+}
+
+
+
+

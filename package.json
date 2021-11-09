@@ -1,23 +1,27 @@
 {
-  "name": "just_for_kicks",
+  "name": "sample_project",
   "version": "1.0.0",
-  "description": "project to mess with various packages",
+  "description": "sample project for skyspec code challenge",
   "main": "src/index.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:production || npm run start:development",
     "start:development": "nodemon --watch src --exec babel-node src/index.js",
-    "start:production": "node ./build/src/index.js"
+    "start:production": "node ./build/src/index.js",
+    "copy": "xcopy \".\\src\\schema\" \".\\build\\src\\schema\" /E/I",
+    "clean-build": "IF EXIST build rd /s/q build",
+    "create-build": "mkdir build",
+    "build-server": "babel src --out-dir build/src",
+    "build": "npm install && npm run clean-build && npm run create-build && npm run build-server && npm run copy"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gbelyea/just_for_kicks.git"
+    "url": "https://github.com/gbelyea/sample_project.git"
   },
   "author": "Greg Belyea",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gbelyea/just_for_kicks/issues"
+    "url": "https://github.com/gbelyea/sample_project/issues"
   },
-  "homepage": "https://github.com/gbelyea/just_for_kicks#readme",
+  "homepage": "https://github.com/gbelyea/sample_project#readme",
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.15.8",
     "@graphql-tools/load-files": "^6.5.1",
@@ -26,11 +30,13 @@
     "apollo-server-core": "^3.4.0",
     "apollo-server-express": "^3.4.0",
     "axios": "^0.24.0",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "graphql": "^15.6.1",
     "morgan": "^1.10.0",
-    "node-fetch": "^2.6.6"
+    "node-fetch": "^2.6.6",
+    "stormdb": "^0.5.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
