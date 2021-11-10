@@ -18,8 +18,16 @@ exports.getGistListForUser = async(gistUsername) => {
   }
 };
 
-exports.getGistListOfFavorites = async(gistUsername) => {
-  // When implemented it will just get all gists and then filter out the ones not favourited
+exports.getGistListOfFavorites = async(gistUsername, database) => {
+  const gists = await axios.get(`${githubRest}/users/${gistUsername}/gists`);
+  const favs = await database.get('favourites').value();
+  const result = await gists.data.filter((gist) => {
+    if (favs.some((fav) => fav.id === gist.id)){
+        return gist;
+    }
+    return null;
+  });
+  return result;
 };
 
 exports.addGistToFavourites = async (gistId, database) => {

@@ -12,14 +12,16 @@ const resolvers = {
       const result = await getGistByIdForUser(args.id);
       return result.data;
     },
-    allGists: async(_parent, args, { context }, info) => {
+    allGists: async(_parent, args, { context, dataSources }, info) => {
       const { username, filter } = args;
+      const { database } = dataSources;
       let result;
       try {
         if (!filter || filter.starred === false) {
           result = await getGistListForUser(username);
         } else {
-          result = await getGistListOfFavorites(username);
+          result = await getGistListOfFavorites(username, database);
+          return result;
         }
       }catch(err){
         console.log(err);
